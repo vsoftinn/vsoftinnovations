@@ -7,13 +7,135 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Logo sizing */
+        .nav-logo img {
+            height: 35px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* Footer improvements */
+        .footer {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            padding: 60px 20px 20px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-section h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #f1f5f9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-section a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #2563eb;
+            transform: translateX(4px);
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .footer-logo span {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #f1f5f9;
+        }
+
+        .footer-section p {
+            color: #cbd5e1;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive footer */
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        /* Team member avatar image sizing */
+        .member-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            flex-shrink: 0;
+        }
+
+        .member-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .member-avatar i {
+            font-size: 2.5rem;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <img src="https://res.cloudinary.com/deopcanic/image/upload/v1762350543/Untitled_design_hwgiac.svg" alt="Vsoft Innovations Logo" />
+                <img src="https://res.cloudinary.com/deopcanic/image/upload/v1762699633/Untitled_design_1_fm25ty.svg" alt="Vsoft Innovations Logo" />
                 <span>Vsoft Innovations</span>
             </div>
             <ul class="nav-menu">
@@ -27,7 +149,7 @@
                     <a href="#about" class="nav-link">About</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#portfolio" class="nav-link">Portfolio</a>
+                    <a href="portfolio.html" class="nav-link">Portfolio</a>
                 </li>
                 <li class="nav-item">
                     <a href="#contact" class="nav-link">Contact</a>
@@ -116,9 +238,8 @@
                         <i class="fas fa-mobile-alt"></i>
                     </div>
                     <h3>Mobile App Development</h3>
-                    <p>Creating stunning native and cross-platform mobile applications for iOS and Android. From concept to deployment, we deliver user-friendly apps that engage and convert.</p>
+                    <p>Creating stunning native and cross-platform mobile android applications. From concept to deployment, we deliver user-friendly apps that engage and convert.</p>
                     <div class="spotlight-features">
-                        <span class="feature-badge">iOS</span>
                         <span class="feature-badge">Android</span>
                         <span class="feature-badge">React Native</span>
                     </div>
@@ -224,9 +345,8 @@
                         <i class="fas fa-mobile-alt"></i>
                     </div>
                     <h3>Mobile Development</h3>
-                    <p>Custom mobile applications for iOS and Android platforms.</p>
+                    <p>Custom mobile applications for Android platforms.</p>
                     <div class="service-features">
-                        <span class="feature-tag">iOS</span>
                         <span class="feature-tag">Android</span>
                         <span class="feature-tag">Cross-Platform</span>
                     </div>
@@ -293,14 +413,14 @@
                     <div class="team-grid">
                         <div class="team-member">
                             <div class="member-avatar">
-                                <img src="assets/images/team/langat-victor.jpg" alt="Langat Victor - Co-Founder">
+                                <img src="https://res.cloudinary.com/deopcanic/image/upload/v1762699633/Untitled_design_1_fm25ty.svg" alt="Langat Victor - Co-Founder">
                             </div>
                             <div class="member-info">
                                 <h4>Langat Victor</h4>
                                 <p>Co-Founder</p>
                             </div>
                         </div>
-                        <div class="team-member">
+                       <div class="team-member">
                             <div class="member-avatar">
                                 <i class="fas fa-user"></i>
                             </div>
@@ -314,7 +434,7 @@
                                 <i class="fas fa-user"></i>
                             </div>
                             <div class="member-info">
-                                <h4>Daisy Chepkemoi</h4>
+                                <h4>Mercy Chepngetich</h4>
                                 <p>Security Expert</p>
                             </div>
                         </div>
@@ -340,34 +460,25 @@
                 <p class="section-subtitle">Showcasing our latest projects and achievements</p>
             </div>
             <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        <img src="https://res.cloudinary.com/deopcanic/image/upload/v1762350984/3405349_t3kax1.jpg" alt="E-Commerce Platform Project">
-                        <div class="portfolio-overlay">
-                            <h3 style="color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.7);">E-Commerce Platform</h3>
-                            <p style="color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.7);">Full-stack development with AI-powered recommendations</p>
-                            <button class="btn btn-outline">View Project</button>
-                        </div>
+                <div class="portfolio-item portfolio-bg-1">
+                    <div class="portfolio-overlay">
+                        <h3>E-Commerce Platform</h3>
+                        <p>Full-stack development with AI-powered recommendations</p>
+                        <a class="btn btn-outline" href="https://geke.netlify.app/" target="_blank" rel="noopener noreferrer">View Project</a>
                     </div>
                 </div>
-                <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80" alt="Healthcare Management Project">
-                        <div class="portfolio-overlay">
-                            <h3 style="color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.7);">Healthcare Management</h3>
-                            <p style="color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.7);">Secure patient data management system</p>
-                            <button class="btn btn-outline">View Project</button>
-                        </div>
+                <div class="portfolio-item portfolio-bg-2">
+                    <div class="portfolio-overlay">
+                        <h3>Healthcare Management</h3>
+                        <p>Secure patient data management system</p>
+                        <a class="btn btn-outline" href="#" target="_blank" rel="noopener noreferrer">View Project</a>
                     </div>
                 </div>
-                <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80" alt="Financial Analytics Project">
-                        <div class="portfolio-overlay">
-                            <h3 style="color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.7);">Financial Analytics</h3>
-                            <p style="color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.7);">Real-time trading platform with advanced analytics</p>
-                            <button class="btn btn-outline">View Project</button>
-                        </div>
+                <div class="portfolio-item portfolio-bg-3">
+                    <div class="portfolio-overlay">
+                        <h3>Financial Analytics</h3>
+                        <p>Real-time trading platform with advanced analytics</p>
+                        <a class="btn btn-outline" href="#" target="_blank" rel="noopener noreferrer">View Project</a>
                     </div>
                 </div>
             </div>
@@ -440,11 +551,10 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <div class="footer-logo">
-                        <img src="https://res.cloudinary.com/deopcanic/image/upload/v1762350543/Untitled_design_hwgiac.svg" alt="Vsoft Innovations Logo" />
+                        <img src="https://res.cloudinary.com/deopcanic/image/upload/v1762699633/Untitled_design_1_fm25ty.svg" alt="Vsoft Innovations Logo" />
                         <span>Vsoft Innovations</span>
                     </div>
-                    <p>Transforming businesses through innovative technology solutions.Vsoft Innovations is a software development company that specializes in developing software solutions for businesses.</p>
-                    
+                    <p>Transforming businesses through innovative technology solutions. Vsoft Innovations is a software development company that specializes in developing software solutions for businesses.</p>
                 </div>
                 <div class="footer-section">
                     <h4>Services</h4>
@@ -460,7 +570,6 @@
                     <ul>
                         <li><a href="#">About Us</a></li>
                         <li><a href="#">Our Team</a></li>
-                        <li><a href="#">Careers</a></li>
                         <li><a href="#">Contact</a></li>
                     </ul>
                 </div>
@@ -470,12 +579,12 @@
                         <li><a href="#">Blog</a></li>
                         <li><a href="#">Case Studies</a></li>
                         <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Support</a></li>
+                        <li><a href="#contact">Support</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025. All rights reserved. Designed with❤️ by vsoft innovations.</p>
+                <p>&copy; 2025. All rights reserved. Designed with ❤️ by Vsoft Innovations.</p>
             </div>
         </div>
     </footer>
