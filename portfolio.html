@@ -1,0 +1,1410 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Langat Victor - Interactive Career Journey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Navigation styles */
+        .navbar {
+            width: 100%;
+            position: sticky;
+            top: 12px;
+            z-index: 60;
+            display: flex;
+            justify-content: center;
+            pointer-events: auto;
+        }
+
+        .nav-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 12px 18px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.6));
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(2,6,23,0.06);
+            backdrop-filter: blur(6px);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo img { height: 40px; width: auto; }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            list-style: none;
+        }
+
+    .nav-item { display: block; }
+
+        .nav-link {
+            color: #0b1724;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.18s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link:focus {
+            background: rgba(37,99,235,0.08);
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(37,99,235,0.08);
+        }
+
+        .hamburger { display: none; cursor: pointer; }
+        .hamburger .bar { display: block; width: 20px; height: 2px; background: #0b1724; margin: 4px 0; border-radius: 2px; }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-container { padding: 10px 12px; }
+            .nav-menu { display: none; position: absolute; right: 12px; top: 64px; flex-direction: column; background: rgba(255,255,255,0.98); padding: 12px; border-radius: 10px; box-shadow: 0 8px 24px rgba(2,6,23,0.12); }
+            .nav-menu.open { display: flex; }
+            .hamburger { display: block; }
+        }
+        :root {
+            --bg: linear-gradient(135deg, #f8fafc 0%, #eef2ff 50%, #ffffff 100%);
+            --card: rgba(255, 255, 255, 0.95);
+            --muted: #6b7280;
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --accent: #3b82f6;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: var(--bg);
+            color: #071025;
+            -webkit-font-smoothing: antialiased;
+            padding: 20px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Welcome Message */
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-overlay {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            bottom: 70px;
+            top: auto;
+            right: auto;
+            transform: translateX(-50%) translateY(-100%) rotate(0deg) !important;
+            white-space: normal;
+            text-align: left;
+            min-width: 260px;
+            max-width: 320px;
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        .welcome-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards 0.5s;
+        }
+        
+        .welcome-subtitle {
+            font-size: 1.5rem;
+            color: var(--muted);
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards 0.8s;
+        }
+        
+        .welcome-cta {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards 1.1s;
+        }
+        
+        .welcome-cta:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.6));
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: var(--muted);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 500;
+            border: 1px solid rgba(2, 6, 23, 0.05);
+        }
+        
+        .timeline-section {
+            margin: 50px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+
+        /* React Timeline Container */
+        #react-timeline-root {
+            height: 1000px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .welcome-title {
+                font-size: 2.5rem;
+            }
+            
+            .welcome-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            #react-timeline-root { height: 6%; }
+        }
+        
+        @media (max-width: 480px) {
+            .welcome-title {
+                font-size: 2rem;
+            }
+            
+            .welcome-subtitle {
+                font-size: 1rem;
+            }
+            
+            #react-timeline-root { height: 500px; }
+            h1 { font-size: 2rem; }
+            .section-title { font-size: 1.5rem; }
+        }
+
+        /* Detail Card with transparent background */
+        .detail-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(2, 6, 23, 0.1);
+            margin-top: 30px;
+            display: none;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            border-left: 5px solid var(--primary);
+        }
+        
+        .detail-card.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .detail-card h3 {
+            margin: 0 0 15px 0;
+            color: var(--primary);
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .detail-card .year {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .detail-card .detail-content {
+            color: var(--muted);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .detail-highlights {
+            margin-top: 20px;
+            padding-left: 20px;
+        }
+        
+        .detail-highlights li {
+            margin-bottom: 10px;
+            position: relative;
+            color: #071025;
+        }
+        
+        .detail-highlights li:before {
+            content: '▹';
+            position: absolute;
+            left: -15px;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Skills Section */
+        .skills-section {
+            margin: 60px 0;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .skill-category {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        .skill-category:nth-child(1) { animation-delay: 0.2s; }
+        .skill-category:nth-child(2) { animation-delay: 0.4s; }
+        .skill-category:nth-child(3) { animation-delay: 0.6s; }
+        .skill-category:nth-child(4) { animation-delay: 0.8s; }
+        .skill-category:nth-child(5) { animation-delay: 1.0s; }
+        
+        .skill-category h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .skill-tag {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            margin: 60px 0;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(2,6,23,.05);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.5s;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        
+        .contact-card {
+            padding: 14px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(251,253,255,0.8));
+            border-radius: 10px;
+            border: 1px solid #eef6ff;
+        }
+        
+        .cta {
+            background: var(--primary);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 0;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        
+        .cta:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+        
+        /* Gradient Links */
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .social-link-email {
+            background: linear-gradient(135deg, #8f3341 5%, #ea7735 5%, #4b9b25 10%, #3440a8 70%);
+            color: white;
+        }
+
+        .social-link-email:hover {
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .social-link-whatsapp {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+        }
+
+        .social-link-whatsapp:hover {
+            box-shadow: 0 8px 16px rgba(37, 211, 102, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .social-link-github {
+            background: linear-gradient(135deg, #333333 0%, #24292e 100%);
+            color: white;
+        }
+
+        .social-link-github:hover {
+            box-shadow: 0 8px 16px rgba(51, 51, 51, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .social-link-linkedin {
+            background: linear-gradient(135deg, #0A66C2 0%, #0055B8 100%);
+            color: white;
+        }
+
+        .social-link-linkedin:hover {
+            box-shadow: 0 8px 16px rgba(10, 102, 194, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            color: var(--muted);
+            padding: 20px 0;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="https://res.cloudinary.com/deopcanic/image/upload/v1762699633/Untitled_design_1_fm25ty.svg" alt="Vsoft Innovations Logo" />
+                <span>Vsoft Innovations</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#services" class="nav-link">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="portfolio.html" class="nav-link">Portfolio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <section class="welcome-section">
+            <div class="welcome-overlay"></div>
+            <h1 class="welcome-title">Welcome to My Portfolio</h1>
+            <p class="welcome-subtitle">Technology Consultant & Full-Stack Developer</p>
+            <a href="#timeline" class="welcome-cta">Explore My Journey</a>
+        </section>
+
+        <header>
+            <h1>Langat Victor</h1>
+            <div class="subtitle">Technology Consultant & Full-Stack Developer</div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <span>langatvictor299@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    <span>+254-714-734-334</span>
+                </div>
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <span>Nairobi, Kenya</span>
+                </div>
+            </div>
+          </header>
+            
+            <!-- React Timeline Container -->
+            <div id="react-timeline-root"></div>
+            
+            <!-- Detail Card Section -->
+            <div class="detail-card" id="detail-card">
+                <h3 id="detail-title">Select a milestone to see details <span class="year" id="detail-year"></span></h3>
+                <div class="detail-content" id="detail-content">
+                    Click on any of the dots above to learn more about that specific career milestone.
+                </div>
+                <ul class="detail-highlights" id="detail-highlights"></ul>
+            </div>
+        </section>
+
+        <section class="skills-section">
+            <h2 class="section-title"><strong>Technical Skills</strong></h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Programming Languages</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">C#</span>
+                        <span class="skill-tag">PHP</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Frameworks & Libraries</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Express.js</span>
+                        <span class="skill-tag">Django</span>
+                        <span class="skill-tag">Ruby on Rails</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Databases</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">Oracle</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">SQL Server</span>
+                        <span class="skill-tag">Supabase</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Tools & Platforms</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">JIRA</span>
+                        <span class="skill-tag">ServiceNow</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Methodologies</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Agile</span>
+                        <span class="skill-tag">Scrum</span>
+                        <span class="skill-tag">ITIL</span>
+                        <span class="skill-tag">Data Analysis</span>
+                        <span class="skill-tag">System Administration</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section card" id="contact">
+            <h2>📞 Contact</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <p>Reach me for quick, reliable support or project collaboration:</p>
+                    <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+                        <div style="display:flex;align-items:center;gap:8px">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5v11A2.5 2.5 0 0 0 5.5 20h13a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 18.5 4h-13A2.5 2.5 0 0 0 3 6.5z" stroke="#0b1724" stroke-width="0.6" fill="rgba(11,97,214,0.03)"/><path d="M4 7.2l8 5 8-5" stroke="#0b1724" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <a href="mailto:langatvictor299@gmail.com" class="social-link social-link-email">Email</a>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:8px">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#25D366"/><path d="M17.2 14.1c-.3-.1-1.7-.8-2-.9-.3-.1-.6-.1-.9.1l-.6.5c-.2.2-.6.3-1 .2-.5-.1-1.3-.5-2.1-1.4-.8-.8-1.3-1.8-1.4-2.2-.1-.4 0-.8.2-1l.5-.6c.2-.2.3-.6.1-.9-.1-.3-.8-1.7-.9-2-.1-.3-.4-.4-.8-.3-.4.1-1.6.6-2.5 1.6-.9.9-1.6 2.2-1.6 3.4 0 1.3.4 2.7 1.2 3.8 1 1.4 3.1 3 5.8 4.2 2.5 1.1 3.6 1 4 .9.4-.1 1.3-.5 1.7-1.1.4-.6.4-1.2.3-1.3-.1-.1-.4-.2-.7-.3z" fill="#fff"/></svg>
+                            <a href="https://wa.me/254714734334" class="social-link social-link-whatsapp" aria-label="WhatsApp chat">WhatsApp</a>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:8px">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.7.5.9 5.3.9 11.7c0 4.8 3.1 8.9 7.4 10.3.5.1.7-.2.7-.5v-1.8c-3 .6-3.6-1.3-3.6-1.3-.5-1.3-1.2-1.7-1.2-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 .1 1.7.7 2.1 1.1 1.3-.9 2.2-2 2.7-3.4-2.4-.3-4.9-1.2-4.9-5.2 0-1.1.4-2 1-2.7-.1-.3-.5-1.3.1-2.7 0 0 .8-.3 2.7 1 .8-.2 1.8-.3 2.7-.3s1.9.1 2.7.3c1.9-1.3 2.7-1 2.7-1 .6 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 4-2.5 4.9-4.9 5.2.7.6 1.2 1.6 1.2 3.3v4.8c0 .3.2.6.7.5 4.3-1.4 7.4-5.5 7.4-10.3C23.1 5.3 18.3.5 12 .5z" fill="#0b1724"/></svg>
+                            <a href="https://vsoftinn.github.io/vsoftinnovations/" class="social-link social-link-github" aria-label="GitHub project site">Github</a>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:8px">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="2" fill="#0A66C2"/><path d="M6.3 8.9h2.3V18H6.3zM7.5 6.7a1.3 1.3 0 11.001-2.6A1.3 1.3 0 017.5 6.7zM12.1 11.2c1 0 1.8.7 2 1.5v5.3h-2.3v-4.7c0-1.1-.4-1.7-1.4-1.7-.8 0-1.3.5-1.5 1v5.4H7.6v-8.6h2.2v1.2c.3-.4 1-.9 2.3-.9z" fill="#fff"/></svg>
+                            <a href="https://www.linkedin.com/in/lanagat-victor-5b4b2521b/" class="social-link social-link-linkedin" aria-label="LinkedIn profile">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-card" style="display:flex;align-items:center;justify-content:center">
+                    <div style="text-align:center">
+                        <div style="font-weight:700;color:var(--primary);margin-bottom:8px">Let's work together</div>
+                        <div style="color:var(--muted);margin-bottom:12px">Fast, reliable support — available for short fixes and longer engagements.</div>
+                        <button class="cta" onclick="window.location='mailto:langatvictor299@gmail.com'">Email Me</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2025 Langat Victor — Technology Consultant & Full-Stack Developer • Nairobi, Kenya</p>
+        </footer>
+    </div>
+
+    <!-- React Timeline Scripts -->
+    <!-- Small script for navbar hamburger toggle -->
+    <script>
+        (function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.getElementById('nav-menu');
+            if (!hamburger || !navMenu) return;
+
+            hamburger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                navMenu.classList.toggle('open');
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!navMenu.classList.contains('open')) return;
+                if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                    navMenu.classList.remove('open');
+                }
+            });
+        })();
+    </script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        // FIXED REACT CODE - All cards fully visible with proper positioning
+        const { useState, useEffect, useRef, forwardRef } = React;
+        const ReactDOM = window.ReactDOM;
+
+        // Simple utility functions to replace missing dependencies
+        const cn = (...classes) => classes.filter(Boolean).join(' ');
+
+        // Professional Lucide SVG Icons
+        const ArrowRight = () => (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14"/>
+                <path d="m12 5 7 7-7 7"/>
+            </svg>
+        );
+
+        const Link = () => (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+            </svg>
+        );
+
+        const Zap = () => (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+        );
+
+        const GraduationCap = () => (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.084a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/>
+                <path d="M22 10v6"/>
+                <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>
+            </svg>
+        );
+
+        const Desktop = () => (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect width="20" height="14" x="2" y="3" rx="2"/>
+                <line x1="8" x2="16" y1="21" y2="21"/>
+                <line x1="12" x2="12" y1="17" y2="21"/>
+            </svg>
+        );
+
+        const BarChart = () => (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="12" x2="12" y1="20" y2="10"/>
+                <line x1="18" x2="18" y1="20" y2="4"/>
+                <line x1="6" x2="6" y1="20" y2="16"/>
+            </svg>
+        );
+
+        const Technologist = () => (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect width="20" height="14" x="2" y="7" rx="2"/>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+            </svg>
+        );
+
+        const Rocket = () => (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+                <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+            </svg>
+        );
+
+        // Additional icons for achievements and sections
+        const Trophy = () => (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                <path d="M4 22h16"/>
+                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+            </svg>
+        );
+
+        const Tools = () => (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
+        );
+
+        const CheckCircle = () => (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+        );
+
+        const Sparkles = () => (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m12 3-1.9 5.8a2 2 0 0 1-1.287 1.288L3 12l5.8 1.9a2 2 0 0 1 1.288 1.287L12 21l1.9-5.8a2 2 0 0 1 1.287-1.288L21 12l-5.8-1.9a2 2 0 0 1-1.288-1.287Z"/>
+            </svg>
+        );
+
+        // Badge Component
+        function Badge({ className, variant = 'default', children, ...props }) {
+            const baseStyles = "inline-flex items-center rounded-full border-2 px-3 py-1 text-xs font-bold transition-colors";
+            
+            const variants = {
+                default: "border-transparent bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg",
+                secondary: "border-transparent bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg",
+                destructive: "border-transparent bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-lg",
+                outline: "text-white border-white bg-black/80"
+            };
+
+            return (
+                <div className={cn(baseStyles, variants[variant], className)} {...props}>
+                    {children}
+                </div>
+            );
+        }
+
+        // Button Component
+        const Button = forwardRef(({ 
+            className, 
+            variant = 'default', 
+            size = 'default', 
+            asChild = false, 
+            children, 
+            ...props 
+        }, ref) => {
+            const baseStyles = "inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-bold transition-all duration-300 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/50";
+            
+            const variants = {
+                default: "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg hover:shadow-xl hover:from-purple-700 hover:to-pink-700",
+                destructive: "bg-gradient-to-r from-red-600 to-orange-600 text-white shadow-lg hover:shadow-xl hover:from-red-700 hover:to-orange-700",
+                outline: "border-2 border-white/80 bg-transparent text-white hover:bg-white/20 hover:border-white shadow-lg",
+                secondary: "bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-cyan-700",
+                ghost: "bg-white/10 text-white hover:bg-white/20 border border-white/30",
+                link: "text-cyan-400 underline-offset-4 hover:underline hover:text-cyan-300"
+            };
+
+            const sizes = {
+                default: "h-12 px-6 py-3 text-base",
+                sm: "h-10 rounded-lg px-4 text-sm",
+                lg: "h-14 rounded-lg px-8 text-lg",
+                icon: "h-12 w-12"
+            };
+
+            const Comp = asChild ? 'span' : 'button';
+
+            return React.createElement(Comp, {
+                className: cn(baseStyles, variants[variant], sizes[size], className),
+                ref,
+                ...props
+            }, children);
+        });
+        Button.displayName = "Button";
+
+        // Card Components - MODIFIED FOR BETTER POSITIONING
+        const Card = forwardRef(({ className, ...props }, ref) => (
+            <div
+                ref={ref}
+                className={cn(
+                    "rounded-2xl border-2 bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-900/95 text-white shadow-2xl backdrop-blur-xl",
+                    className
+                )}
+                {...props}
+            />
+        ));
+        Card.displayName = "Card";
+
+        const CardHeader = forwardRef(({ className, ...props }, ref) => (
+            <div
+                ref={ref}
+                className={cn("flex flex-col space-y-2 p-6 border-b border-white/20", className)}
+                {...props}
+            />
+        ));
+        CardHeader.displayName = "CardHeader";
+
+        const CardTitle = forwardRef(({ className, ...props }, ref) => (
+            <h3
+                ref={ref}
+                className={cn(
+                    "text-2xl font-bold leading-none tracking-tight bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent",
+                    className
+                )}
+                {...props}
+            />
+        ));
+        CardTitle.displayName = "CardTitle";
+
+        const CardDescription = forwardRef(({ className, ...props }, ref) => (
+            <p
+                ref={ref}
+                className={cn("text-base text-gray-300 font-medium", className)}
+                {...props}
+            />
+        ));
+        CardDescription.displayName = "CardDescription";
+
+        const CardContent = forwardRef(({ className, ...props }, ref) => (
+            <div ref={ref} className={cn("p-6 pt-4", className)} {...props} />
+        ));
+        CardContent.displayName = "CardContent";
+
+        // Main Timeline Component - FIXED POSITIONING
+        function RadialOrbitalTimeline({ timelineData }) {
+            const [expandedItems, setExpandedItems] = useState({});
+            const [rotationAngle, setRotationAngle] = useState(0);
+            const [autoRotate, setAutoRotate] = useState(true);
+            const [pulseEffect, setPulseEffect] = useState({});
+            const [activeNodeId, setActiveNodeId] = useState(null);
+            const containerRef = useRef(null);
+            const orbitRef = useRef(null);
+            const nodeRefs = useRef({});
+            const cardRefs = useRef({});
+
+            const handleContainerClick = (e) => {
+                if (e.target === containerRef.current || e.target === orbitRef.current) {
+                    setExpandedItems({});
+                    setActiveNodeId(null);
+                    setPulseEffect({});
+                    setAutoRotate(true);
+                }
+            };
+
+            const toggleItem = (id) => {
+                setExpandedItems((prev) => {
+                    const newState = { ...prev };
+                    // Close all other items
+                    Object.keys(newState).forEach((key) => {
+                        if (parseInt(key) !== id) {
+                            newState[parseInt(key)] = false;
+                        }
+                    });
+
+                    newState[id] = !prev[id];
+
+                    if (!prev[id]) {
+                        setActiveNodeId(id);
+                        setAutoRotate(false);
+
+                        const relatedItems = getRelatedItems(id);
+                        const newPulseEffect = {};
+                        relatedItems.forEach((relId) => {
+                            newPulseEffect[relId] = true;
+                        });
+                        setPulseEffect(newPulseEffect);
+
+                        centerViewOnNode(id);
+                    } else {
+                        setActiveNodeId(null);
+                        setAutoRotate(true);
+                        setPulseEffect({});
+                    }
+
+                    return newState;
+                });
+            };
+
+            useEffect(() => {
+                let rotationTimer;
+
+                if (autoRotate) {
+                    rotationTimer = setInterval(() => {
+                        setRotationAngle((prev) => {
+                            const newAngle = (prev + 0.3) % 360;
+                            return newAngle;
+                        });
+                    }, 50);
+                }
+
+                return () => {
+                    if (rotationTimer) {
+                        clearInterval(rotationTimer);
+                    }
+                };
+            }, [autoRotate]);
+
+            const centerViewOnNode = (nodeId) => {
+                if (!nodeRefs.current[nodeId]) return;
+
+                const nodeIndex = timelineData.findIndex((item) => item.id === nodeId);
+                const totalNodes = timelineData.length;
+                const targetAngle = (nodeIndex / totalNodes) * 360;
+
+                setRotationAngle(270 - targetAngle);
+            };
+
+            const calculateNodePosition = (index, total) => {
+                const angle = ((index / total) * 360 + rotationAngle) % 360;
+                const radius = 200;
+                const radian = (angle * Math.PI) / 180;
+
+                const x = radius * Math.cos(radian);
+                const y = radius * Math.sin(radian);
+
+                const zIndex = Math.round(100 + 50 * Math.cos(radian));
+                const opacity = Math.max(
+                    0.4,
+                    Math.min(1, 0.4 + 0.6 * ((1 + Math.sin(radian)) / 2))
+                );
+
+                return { x, y, angle, zIndex, opacity };
+            };
+
+            const getRelatedItems = (itemId) => {
+                const currentItem = timelineData.find((item) => item.id === itemId);
+                return currentItem ? currentItem.relatedIds : [];
+            };
+
+            const isRelatedToActive = (itemId) => {
+                if (!activeNodeId) return false;
+                const relatedItems = getRelatedItems(activeNodeId);
+                return relatedItems.includes(itemId);
+            };
+
+            const getStatusStyles = (status) => {
+                switch (status) {
+                    case "completed":
+                        return "text-white bg-gradient-to-r from-green-500 to-emerald-500 border-green-400 shadow-lg";
+                    case "in-progress":
+                        return "text-white bg-gradient-to-r from-yellow-500 to-orange-500 border-yellow-400 shadow-lg";
+                    case "pending":
+                        return "text-white bg-gradient-to-r from-purple-500 to-pink-500 border-purple-400 shadow-lg";
+                    default:
+                        return "text-white bg-gradient-to-r from-gray-500 to-gray-600 border-gray-400";
+                }
+            };
+
+            // Calculate optimal card position based on node position
+            const getCardPosition = (x, y) => {
+                const isLeft = x < 0;
+                const isTop = y < 0;
+                
+                // Position card to avoid edges
+                let cardX = isLeft ? x - 200 : x + 200;
+                let cardY = isTop ? y - 50 : y + 50;
+                
+                // Ensure card stays within viewport
+                const maxX = window.innerWidth / 2 - 250;
+                const maxY = window.innerHeight / 2 - 300;
+                
+                cardX = Math.max(-maxX, Math.min(maxX, cardX));
+                cardY = Math.max(-maxY, Math.min(maxY, cardY));
+                
+                return { cardX, cardY };
+            };
+
+            return (
+                <div
+                    className="w-full h-screen flex flex-col items-center justify-center bg-white overflow-hidden"
+                    ref={containerRef}
+                    onClick={handleContainerClick}
+                >
+                    {/* Vibrant Header */}
+                    <div className="absolute top-6 z-50">
+                        <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-800 via-blue-600 to-purple-600 bg-clip-text text-transparent">
+                            career journey
+                        </h1>
+                    </div>
+                    
+                    <div className="relative w-full max-w-4xl h-full flex items-center justify-center">
+                        <div
+                            className="absolute w-full h-full flex items-center justify-center"
+                            ref={orbitRef}
+                        >
+                            {/* Enhanced Center Node */}
+                            <div className="absolute w-20 h-20 rounded-full bg-gradient-to-br from-purple-600 via-blue-500 to-teal-400 animate-pulse flex items-center justify-center z-10 shadow-2xl">
+                                <div className="absolute w-24 h-24 rounded-full border-2 border-white/30 animate-ping opacity-70"></div>
+                                <div
+                                    className="absolute w-28 h-28 rounded-full border-2 border-white/20 animate-ping opacity-50"
+                                    style={{ animationDelay: "0.5s" }}
+                                ></div>
+                                <div className="w-12 h-12 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center">
+                                    <Sparkles />
+                                </div>
+                            </div>
+
+                            <div className="absolute w-96 h-96 rounded-full border-2 border-gray-200 shadow-inner"></div>
+
+                            {timelineData.map((item, index) => {
+                                const position = calculateNodePosition(index, timelineData.length);
+                                const isExpanded = expandedItems[item.id];
+                                const isRelated = isRelatedToActive(item.id);
+                                const isPulsing = pulseEffect[item.id];
+                                const IconComponent = item.icon;
+                                
+                                // Calculate optimal card position
+                                const { cardX, cardY } = getCardPosition(position.x, position.y);
+
+                                const nodeStyle = {
+                                    transform: `translate(${position.x}px, ${position.y}px)`,
+                                    zIndex: isExpanded ? 200 : position.zIndex,
+                                    opacity: isExpanded ? 1 : position.opacity,
+                                };
+
+                                const cardStyle = {
+                                    transform: `translate(${cardX}px, ${cardY}px)`,
+                                    zIndex: 1000,
+                                };
+
+                                return (
+                                    <div
+                                        key={item.id}
+                                        ref={(el) => (nodeRefs.current[item.id] = el)}
+                                        className="absolute transition-all duration-700 cursor-pointer group"
+                                        style={nodeStyle}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            toggleItem(item.id);
+                                        }}
+                                    >
+                                        {/* Enhanced Pulse Effect */}
+                                        <div
+                                            className={`absolute rounded-full -inset-2 ${
+                                                isPulsing ? "animate-pulse duration-1000" : ""
+                                            }`}
+                                            style={{
+                                                background: `radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%)`,
+                                                width: `${item.energy * 0.5 + 60}px`,
+                                                height: `${item.energy * 0.5 + 60}px`,
+                                                left: `-${(item.energy * 0.5 + 60 - 48) / 2}px`,
+                                                top: `-${(item.energy * 0.5 + 60 - 48) / 2}px`,
+                                            }}
+                                        ></div>
+
+                                        {/* Enhanced Node */}
+                                        <div
+                                            className={`
+                                                w-14 h-14 rounded-full flex items-center justify-center
+                                                ${
+                                                    isExpanded
+                                                        ? "bg-gradient-to-br from-white to-gray-200 text-black shadow-2xl"
+                                                        : isRelated
+                                                        ? "bg-gradient-to-br from-cyan-400 to-blue-500 text-white shadow-xl animate-pulse"
+                                                        : "bg-gradient-to-br from-purple-600 to-pink-600 text-white shadow-lg"
+                                                }
+                                                border-2 border-white
+                                                transition-all duration-300 transform
+                                                ${isExpanded ? "scale-150 rotate-12" : "group-hover:scale-125 group-hover:rotate-6"}
+                                                group-hover:shadow-2xl
+                                            `}
+                                        >
+                                            <IconComponent />
+                                        </div>
+
+                                        {/* Enhanced Title */}
+                                        <div
+                                            className={`
+                                                absolute top-16 whitespace-nowrap
+                                                text-sm font-bold tracking-wider
+                                                transition-all duration-300
+                                                ${
+                                                    isExpanded 
+                                                        ? "text-gray-800 scale-125 bg-white/90 px-3 py-1 rounded-full shadow-lg" 
+                                                        : "text-gray-700 bg-white/80 px-2 py-1 rounded-full"
+                                                }
+                                                group-hover:scale-110 group-hover:text-gray-900
+                                            `}
+                                        >
+                                            {item.title}
+                                        </div>
+
+                                        {/* Enhanced Expanded Card with proper positioning */}
+                                        {isExpanded && (
+                                            <div 
+                                                className="absolute top-0 left-0 w-96 z-50"
+                                                style={cardStyle}
+                                                ref={(el) => (cardRefs.current[item.id] = el)}
+                                            >
+                                                <Card className="bg-gradient-to-br from-gray-900/95 via-black/95 to-purple-900/80 border-2 border-white/30 shadow-2xl overflow-visible">
+                                                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-2 h-4 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-full"></div>
+                                                    
+                                                    <CardHeader className="pb-4">
+                                                        <div className="flex justify-between items-center">
+                                                            <Badge
+                                                                className={`px-4 py-2 text-sm font-bold ${getStatusStyles(item.status)}`}
+                                                            >
+                                                                {item.status === "completed"
+                                                                    ? "✅ COMPLETED"
+                                                                    : item.status === "in-progress"
+                                                                    ? "🔄 IN PROGRESS"
+                                                                    : "🚀 FUTURE VISION"}
+                                                            </Badge>
+                                                            <span className="text-sm font-mono text-cyan-300 bg-black/50 px-3 py-1 rounded-lg">
+                                                                {item.date}
+                                                            </span>
+                                                        </div>
+                                                        <CardTitle className="text-xl mt-3">
+                                                            {item.title}
+                                                        </CardTitle>
+                                                        <p className="text-base text-cyan-200 font-semibold">{item.role}</p>
+                                                    </CardHeader>
+                                                    
+                                                    <CardContent className="text-sm">
+                                                        <p className="mb-4 text-white/90 leading-relaxed">{item.content}</p>
+
+                                                        {/* Vibrant Achievements */}
+                                                        {item.achievements && (
+                                                            <div className="mb-4 p-4 bg-gradient-to-r from-green-900/30 to-emerald-900/20 rounded-xl border border-green-500/30">
+                                                                <h4 className="text-sm font-bold text-green-300 mb-3 flex items-center">
+                                                                    <Trophy />
+                                                                    <span className="ml-2">KEY ACHIEVEMENTS</span>
+                                                                </h4>
+                                                                <ul className="space-y-2">
+                                                                    {item.achievements.map((achievement, idx) => (
+                                                                        <li key={idx} className="flex items-start">
+                                                                            <span className="text-green-400 mr-2 flex-shrink-0 mt-0.5">
+                                                                                <CheckCircle />
+                                                                            </span>
+                                                                            <span className="text-white/90">{achievement}</span>
+                                                                        </li>
+                                                                    ))}
+                                                                </ul>
+                                                            </div>
+                                                        )}
+
+                                                        {/* Vibrant Technologies */}
+                                                        {item.technologies && (
+                                                            <div className="mb-4 p-4 bg-gradient-to-r from-blue-900/30 to-cyan-900/20 rounded-xl border border-blue-500/30">
+                                                                <h4 className="text-sm font-bold text-blue-300 mb-3 flex items-center">
+                                                                    <Tools />
+                                                                    <span className="ml-2">TECHNOLOGIES USED</span>
+                                                                </h4>
+                                                                <div className="flex flex-wrap gap-2">
+                                                                    {item.technologies.map((tech, idx) => (
+                                                                        <span key={idx} className="px-3 py-1 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-full text-xs font-semibold shadow-lg">
+                                                                            {tech}
+                                                                        </span>
+                                                                    ))}
+                                                                </div>
+                                                            </div>
+                                                        )}
+
+                                                        {/* Enhanced Progress Bar */}
+                                                        <div className="mt-6 pt-4 border-t border-white/20">
+                                                            <div className="flex justify-between items-center text-sm mb-3">
+                                                                <span className="flex items-center text-cyan-300 font-semibold">
+                                                                    <Zap />
+                                                                    <span className="ml-2">CAREER PROGRESS</span>
+                                                                </span>
+                                                                <span className="font-mono text-yellow-300 font-bold">{item.energy}%</span>
+                                                            </div>
+                                                            <div className="w-full h-3 bg-white/10 rounded-full overflow-hidden shadow-inner">
+                                                                <div
+                                                                    className="h-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 shadow-lg"
+                                                                    style={{ width: `${item.energy}%` }}
+                                                                ></div>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Vibrant Related Milestones - FIXED VISIBILITY */}
+                                                        {item.relatedIds.length > 0 && (
+                                                            <div className="mt-6 pt-4 border-t border-white/20">
+                                                                <div className="flex items-center mb-3">
+                                                                    <Link />
+                                                                    <h4 className="text-sm uppercase tracking-wider font-bold text-purple-300 ml-2">
+                                                                        RELATED MILESTONES
+                                                                    </h4>
+                                                                </div>
+                                                                <div className="flex flex-wrap gap-2">
+                                                                    {item.relatedIds.map((relatedId) => {
+                                                                        const relatedItem = timelineData.find(
+                                                                            (i) => i.id === relatedId
+                                                                        );
+                                                                        return (
+                                                                            <Button
+                                                                                key={relatedId}
+                                                                                variant="outline"
+                                                                                size="sm"
+                                                                                className="flex items-center px-4 py-2 text-sm font-semibold border-2 border-cyan-400/50 bg-cyan-900/30 text-cyan-200 hover:bg-cyan-800/50 hover:border-cyan-300 hover:text-white transition-all duration-300 shadow-lg"
+                                                                                onClick={(e) => {
+                                                                                    e.stopPropagation();
+                                                                                    toggleItem(relatedId);
+                                                                                }}
+                                                                            >
+                                                                                {relatedItem?.title}
+                                                                                <ArrowRight />
+                                                                            </Button>
+                                                                        );
+                                                                    })}
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                    </CardContent>
+                                                </Card>
+                                            </div>
+                                        )}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Enhanced career journey with detailed information
+        const timelineData = [
+            {
+                id: 1,
+                title: "Education",
+                role: "Maseno University",
+                date: "2017 - 2021",
+                content: "Bachelor of Science in Mathematics & Computer Science with Second Class Honors. Built strong foundation in programming, algorithms, data structures, and mathematical modeling.",
+                category: "Education",
+                icon: GraduationCap,
+                relatedIds: [2],
+                status: "completed",
+                energy: 100,
+                achievements: [
+                    "Second Class Honors degree",
+                    "Strong foundation in software engineering principles",
+                    "Advanced mathematical modeling skills"
+                ],
+                technologies: ["Algorithms", "Data Structures", "Mathematics", "Programming Fundamentals"]
+            },
+            {
+                id: 2,
+                title: "IT Support",
+                role: "Kericho County Government",
+                date: "Jan 2021 - Apr 2021",
+                content: "IT Support Attachee providing technical support and system maintenance for government operations.",
+                category: "Professional",
+                icon: Desktop,
+                relatedIds: [1, 3],
+                status: "completed",
+                energy: 90,
+                achievements: [
+                    "Supported 100+ Windows/Linux systems",
+                    "Provided technical support to 200+ staff with 95% satisfaction rate",
+                    "Implemented automated backup procedures",
+                    "Reduced system downtime by 40% through efficient upgrades"
+                ],
+                technologies: ["Windows OS", "Linux OS", "System Administration", "Technical Support"]
+            },
+            {
+                id: 3,
+                title: "Data Analyst",
+                role: "Twiga Foods",
+                date: "Dec 2021 - Oct 2022",
+                content: "Data Analyst responsible for analyzing multi-source datasets and providing business intelligence insights.",
+                category: "Professional",
+                icon: BarChart,
+                relatedIds: [2, 4],
+                status: "completed",
+                energy: 85,
+                achievements: [
+                    "Improved business decision accuracy by 15%",
+                    "Reduced SQL query execution time by 30% through optimization",
+                    "Built dashboards and analytical reports for senior management",
+                    "Improved data quality by 20% with validation frameworks"
+                ],
+                technologies: ["SQL", "Data Analysis", "Business Intelligence", "Data Validation", "Python"]
+            },
+            {
+                id: 4,
+                title: "Systems Admin",
+                role: "Freelance IT Consultant",
+                date: "Nov 2023 - Present",
+                content: "Freelance IT Systems Administrator delivering database solutions and system architecture designs.",
+                category: "Professional",
+                icon: Technologist,
+                relatedIds: [3, 5],
+                status: "in-progress",
+                energy: 75,
+                achievements: [
+                    "Restored complex databases achieving 99.9% data integrity",
+                    "Designed pharmacy management system reducing inventory losses by 25%",
+                    "Developed backend modules using Python and SQL",
+                    "Trained 50+ end-users ensuring smooth system adoption"
+                ],
+                technologies: ["Python", "SQL", "Database Management", "System Architecture", "Backend Development"]
+            },
+            {
+                id: 5,
+                title: "Future Vision",
+                role: "Technology Innovation",
+                date: "2024+",
+                content: "Seeking opportunities in full-stack development and cloud architecture with focus on modern DevOps practices and scalable solutions.",
+                category: "Future",
+                icon: Rocket,
+                relatedIds: [4],
+                status: "pending",
+                energy: 60,
+                achievements: [
+                    "Cloud integration and DevOps implementation",
+                    "Scalable digital solutions development",
+                    "Modern technology stack adoption",
+                    "Continuous learning and skill enhancement"
+                ],
+                technologies: ["React", "Node.js", "AWS", "Docker", "Full-Stack Development", "Cloud Architecture"]
+            }
+        ];
+
+        function App() {
+            return <RadialOrbitalTimeline timelineData={timelineData} />;
+        }
+
+        // Render the app
+        ReactDOM.render(<App />, document.getElementById('react-timeline-root'));
+    </script>
+</body>
+</html>
