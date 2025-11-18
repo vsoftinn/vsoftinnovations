@@ -1,3 +1,63 @@
+// Centralized site scripts
+// Mobile navigation toggle moved here from inline HTML
+(function(){
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    if (!hamburger || !navMenu) return;
+
+    // Accessibility attributes
+    hamburger.setAttribute('role', 'button');
+    hamburger.setAttribute('tabindex', '0');
+    hamburger.setAttribute('aria-label', 'Toggle navigation menu');
+    hamburger.setAttribute('aria-expanded', 'false');
+
+    function openMenu() {
+        navMenu.classList.add('open');
+        hamburger.classList.add('is-active');
+        hamburger.setAttribute('aria-expanded', 'true');
+        navMenu.focus();
+    }
+
+    function closeMenu() {
+        navMenu.classList.remove('open');
+        hamburger.classList.remove('is-active');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.focus();
+    }
+
+    hamburger.addEventListener('click', function(e){
+        e.stopPropagation();
+        const willOpen = !navMenu.classList.contains('open');
+        if (willOpen) openMenu(); else closeMenu();
+    });
+
+    // keyboard support
+    hamburger.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            hamburger.click();
+        }
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', function(e){
+        if (!navMenu.classList.contains('open')) return;
+        if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+            closeMenu();
+        }
+    });
+
+    // Close on resize to desktop
+    window.addEventListener('resize', function(){
+        if (window.innerWidth >= 769 && navMenu.classList.contains('open')) {
+            closeMenu();
+        }
+    });
+
+})();
+
+// Placeholder for other site scripts
+// Add additional JS below as needed
 // Navigation and Logo Animation
 document.addEventListener('DOMContentLoaded', () => {
     // Smooth scrolling for navigation links
