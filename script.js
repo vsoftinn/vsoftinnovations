@@ -1,7 +1,9 @@
-// Centralized site scripts
+
+const navMenu = document.querySelector('#nav-menu');// Centralized site scripts
 // Mobile navigation toggle moved here from inline HTML
 (function(){
     const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('#nav-menu');
     const navMenu = document.querySelector('.nav-menu');
     if (!hamburger || !navMenu) return;
 
