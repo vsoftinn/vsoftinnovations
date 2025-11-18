@@ -580,6 +580,77 @@
                 gap: 40px;
             }
         }
+
+        /* ===== Portfolio Card Styling ===== */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .portfolio-card {
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+            padding: 20px;
+            border-radius: 14px;
+            color: #fff;
+            box-shadow: 0 8px 30px rgba(2,6,23,0.06);
+            transition: transform 220ms ease, box-shadow 220ms ease;
+            min-height: 160px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+            flex-direction: row;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(2,6,23,0.12);
+        }
+
+        .portfolio-icon {
+            flex: 0 0 64px;
+            height: 64px;
+            border-radius: 12px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size: 28px;
+            background: rgba(255,255,255,0.12);
+        }
+
+        .portfolio-content {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .portfolio-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        .portfolio-desc {
+            color: rgba(255,255,255,0.95);
+            margin: 0;
+            font-size: 0.98rem;
+        }
+
+        .portfolio-link {
+            margin-top: auto;
+            align-self: flex-start;
+            color: rgba(255,255,255,0.95);
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .portfolio-card:nth-child(1) { background: linear-gradient(135deg,#06b6d4 0%, #0891b2 100%); }
+        .portfolio-card:nth-child(2) { background: linear-gradient(135deg,#7c3aed 0%, #6d28d9 100%); }
+        .portfolio-card:nth-child(3) { background: linear-gradient(135deg,#f59e0b 0%, #f97316 100%); }
+
     </style>
     <!-- Favicons -->
     <link rel="icon" href="https://res.cloudinary.com/deopcanic/image/upload/v1762699633/Untitled_design_1_fm25ty.svg" type="image/svg+xml">
@@ -917,25 +988,30 @@
                 <p class="section-subtitle">Showcasing our latest projects and achievements</p>
             </div>
             <div class="portfolio-grid">
-                <div class="portfolio-item portfolio-bg-1">
-                    <div class="portfolio-overlay">
-                        <h3>E-Commerce Platform</h3>
-                        <p>Full-stack development with AI-powered recommendations</p>
-                        <a class="btn btn-outline" href="https://geke.netlify.app/" target="_blank" rel="noopener noreferrer">View Project</a>
+                <div class="portfolio-card">
+                    <div class="portfolio-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">E-Commerce Platform</h3>
+                        <p class="portfolio-desc">Full-stack development with AI-powered recommendations and smooth checkout flows.</p>
+                        <a class="portfolio-link" href="https://geke.netlify.app/" target="_blank" rel="noopener noreferrer">View Project →</a>
                     </div>
                 </div>
-                <div class="portfolio-item portfolio-bg-2">
-                    <div class="portfolio-overlay">
-                        <h3>Healthcare Management</h3>
-                        <p>Secure patient data management system</p>
-                        <a class="btn btn-outline" href="#" target="_blank" rel="noopener noreferrer">View Project</a>
+
+                <div class="portfolio-card">
+                    <div class="portfolio-icon"><i class="fas fa-notes-medical"></i></div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">Healthcare Management</h3>
+                        <p class="portfolio-desc">Secure patient data management system with role-based access and audit trails.</p>
+                        <a class="portfolio-link" href="#" target="_blank" rel="noopener noreferrer">View Project →</a>
                     </div>
                 </div>
-                <div class="portfolio-item portfolio-bg-3">
-                    <div class="portfolio-overlay">
-                        <h3>Financial Analytics</h3>
-                        <p>Real-time trading platform with advanced analytics</p>
-                        <a class="btn btn-outline" href="#" target="_blank" rel="noopener noreferrer">View Project</a>
+
+                <div class="portfolio-card">
+                    <div class="portfolio-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">Financial Analytics</h3>
+                        <p class="portfolio-desc">Real-time trading platform with advanced analytics and visualization dashboards.</p>
+                        <a class="portfolio-link" href="#" target="_blank" rel="noopener noreferrer">View Project →</a>
                     </div>
                 </div>
             </div>
