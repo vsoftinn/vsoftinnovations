@@ -150,10 +150,15 @@
                 font-weight: 700;
             }
 
+            .nav-container {
+                padding: 10px 12px;
+                position: relative;
+            }
+
             .nav-menu {
                 display: flex;
                 position: absolute;
-                top: 60px;
+                top: calc(100% + 8px);
                 right: 12px;
                 flex-direction: column;
                 background: rgba(255, 255, 255, 0.98);
@@ -163,7 +168,7 @@
                 min-width: 150px;
                 z-index: 1000;
                 opacity: 0;
-                transform: scale(0.9) translateY(-8px);
+                transform: scale(0.96) translateY(-6px);
                 pointer-events: none;
                 transition: opacity 200ms ease, transform 220ms cubic-bezier(0.23, 1, 0.32, 1);
             }
@@ -172,6 +177,18 @@
                 opacity: 1;
                 transform: scale(1) translateY(0);
                 pointer-events: auto;
+            }
+
+            /* Ensure nav links are visible on mobile (white menu background) */
+            .nav-menu .nav-link {
+                color: #0b1724;
+                display: block;
+                padding: 8px 12px;
+            }
+
+            .nav-menu .nav-link:focus {
+                outline: 2px solid rgba(37,99,235,0.2);
+                outline-offset: 2px;
             }
 
             .hamburger {
