@@ -9,6 +9,7 @@
     hamburger.setAttribute('role', 'button');
     hamburger.setAttribute('tabindex', '0');
     hamburger.setAttribute('aria-label', 'Toggle navigation menu');
+    hamburger.setAttribute('aria-controls', 'nav-menu');
     hamburger.setAttribute('aria-expanded', 'false');
 
     function openMenu() {
