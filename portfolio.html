@@ -221,9 +221,15 @@
             font-size: 1.8rem;
         }
 
-        /* React Timeline Container */
+        /* React Timeline Container - center and responsive heights */
         #react-timeline-root {
-            height: 1000px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: calc(100vh - 260px);
+            max-height: 1200px;
+            height: auto;
             background: white;
             border-radius: 20px;
             overflow: hidden;
@@ -242,7 +248,8 @@
                 font-size: 1.2rem;
             }
             
-            #react-timeline-root { height: 6%; }
+            /* On tablet / small screens keep a reasonable min-height so the timeline centers */
+            #react-timeline-root { min-height: 520px; max-height: 900px; }
         }
         
         @media (max-width: 480px) {
@@ -254,7 +261,8 @@
                 font-size: 1rem;
             }
             
-            #react-timeline-root { height: 500px; }
+            /* Mobile: allow the timeline to occupy a tall area and center content */
+            #react-timeline-root { min-height: 500px; max-height: 900px; }
             h1 { font-size: 2rem; }
             .section-title { font-size: 1.5rem; }
         }
@@ -680,7 +688,7 @@
         </section>
 
         <footer>
-            <p>© 2025 Langat Victor — Technology Consultant & Full-Stack Developer • Nairobi, Kenya</p>
+            <p>2025. All rights reserved. Designed with ❤️ by Vsoft Innovations.</p>
         </footer>
     </div>
 
