@@ -221,6 +221,27 @@
                 visibility: visible;
             }
 
+            /* Compatibility: support both 'active' and 'open' classes (some scripts use one or the other) */
+            .nav-menu.open {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+            }
+
+            /* Support both hamburger class variants for animation */
+            .hamburger.active .bar:nth-child(1), .hamburger.is-active .bar:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+
+            .hamburger.active .bar:nth-child(2), .hamburger.is-active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active .bar:nth-child(3), .hamburger.is-active .bar:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+
             .nav-item {
                 width: 100%;
             }
